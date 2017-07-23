@@ -17,7 +17,7 @@ If you don't want to include in your project, you can install with `make install
 
 
 ```
-# DB connection - ./.test.env
+# DB connection
 DB_HOST=localhost
 DB_NAME=test_db
 DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
@@ -28,7 +28,7 @@ DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
 
 int main(void)
 {
-    env_load("./.test.env", false);
+    env_load(".", false);
 
     char *connection = getenv("DSN");
 }
