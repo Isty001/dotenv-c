@@ -10,7 +10,7 @@
 #define VAR_CLOSE_TAG "}"
 #define COMMENT_CHAR '#'
 
-
+/* strtok() won't remove the whole ${ part, only the $ */
 #define remove_bracket(name) name + 1
 
 
