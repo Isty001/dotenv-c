@@ -23,7 +23,7 @@ DB_NAME=test_db
 DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
 ```
 
-```
+```c
 #include <dotenv.h>
 
 int main(void)
