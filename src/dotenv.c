@@ -11,6 +11,9 @@
 #define COMMENT_CHAR '#'
 
 
+#define remove_bracket(name) name + 1
+
+
 static char *concat(char *buffer, char *string)
 {
     if (!buffer) {
@@ -44,7 +47,7 @@ static char *parse_value(char *value)
             if (!name) {
                 break;
             }
-            parsed = concat(parsed, getenv(name + 1));
+            parsed = concat(parsed, getenv(remove_bracket(name)));
             search = NULL;
         }
         return parsed;
