@@ -1,19 +1,19 @@
 ### dotenv for c
 
 This small package adds support for loading .env files.
-Just call the `env_load` function with a valid path, you can either pass a directory,
-to load a file called .env there, or directly pass the file. If no file can be
+Just call the `env_load` function with a valid path, that contains a file named .env,
+or the path of the env file itself.
 loaded, it'll return `-1`, `0` otherwise. If the second parameter is set to `true`,
 already existing environment variable will be replaced with the new value.
 
 In the file, comments can be added by starting the line with `#`.
-It's also possible to nest the variables, but in that case, the used variables must be already defined.
+It's also possible to nest the variables, but in that case, the used variables need be already defined.
 
 Quotes won't be removed from the strings.
 
 #### usage
 
-If you don't want to include in your project, you can install with `make install` then link it `-ldotenv`.
+If you don't want to include in your project, you can install with `make install` then link it with `-ldotenv`.
 
 
 ```
@@ -27,7 +27,7 @@ DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
 #include <dotenv.h>
 
 int main(void)
-{
+{   //A directroy with an .env file in it, or the path of the file explicitly
     env_load(".", false);
 
     char *connection = getenv("DSN");

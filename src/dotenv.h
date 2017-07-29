@@ -5,7 +5,9 @@
 #include <stdbool.h>
 
 /**
- * returns 0 if the given path can be loaded, or there is a .env file, -1 otherwise
+ * @param path Can be a directory containing a file named .env, or the path of the env file itself
+ * @param overwrite Existing variables will be overwritten
+ * @return 0 on success, -1 if can't open the file
  */
 int env_load(char *path, bool overwrite);
 

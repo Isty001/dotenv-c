@@ -51,7 +51,7 @@ static char *parse_value(char *value)
     return value;
 }
 
-static bool is_commented(const char *line)
+static bool is_commented(char *line)
 {
     if ('#' == line[0]) {
         return true;
