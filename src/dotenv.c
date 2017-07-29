@@ -6,11 +6,7 @@
 #include <dotenv.h>
 
 
-#define VAR_OPEN_TAG "${"
-#define VAR_CLOSE_TAG "}"
-#define COMMENT_CHAR '#'
-
-/* strtok() won't remove the whole ${ part, only the $ */
+/* strtok_r() won't remove the whole ${ part, only the $ */
 #define remove_bracket(name) name + 1
 
 
@@ -31,18 +27,18 @@ static char *concat(char *buffer, char *string)
 
 static bool is_nested(char *value)
 {
-    return strstr(value, VAR_OPEN_TAG) && strstr(value, VAR_CLOSE_TAG);
+    return strstr(value, "${") && strstr(value, "}");
 }
 
 static char *parse_value(char *value)
 {
-    char *search = value, *parsed = NULL;
+    char *search = value, *parsed = NULL, *tok_ptr;
     char *name;
 
     if (value && is_nested(value)) {
         while (1) {
-            parsed = concat(parsed, strtok(search, "${"));
-            name = strtok(NULL, "}");
+            parsed = concat(parsed, strtok_r(search, "${", &tok_ptr));
+            name = strtok_r(NULL, "}", &tok_ptr);
 
             if (!name) {
                 break;
@@ -55,15 +51,15 @@ static char *parse_value(char *value)
     return value;
 }
 
-static bool is_commented(char *line)
+static bool is_commented(const char *line)
 {
-    if (COMMENT_CHAR == line[0]) {
+    if ('#' == line[0]) {
         return true;
     }
 
     int i = 0;
     while (' ' == line[i]) {
-        if (COMMENT_CHAR == line[++i]) {
+        if ('#' == line[++i]) {
             return true;
         }
     }
@@ -87,13 +83,13 @@ static void set_variable(char *name, char *original, bool overwrite)
 
 static void parse(FILE *file, bool overwrite)
 {
-    char *name, *original, *line = NULL;
+    char *name, *original, *line = NULL, *tok_ptr;
     size_t len = 0;
 
     while (-1 != getline(&line, &len, file)) {
         if (!is_commented(line)) {
-            name = strtok(line, "=");
-            original = strtok(NULL, "\n");
+            name = strtok_r(line, "=", &tok_ptr);
+            original = strtok_r(NULL, "\n", &tok_ptr);
 
             set_variable(name, original, overwrite);
         }
@@ -103,10 +99,10 @@ static void parse(FILE *file, bool overwrite)
 
 static FILE *open_default(char *base_path)
 {
-    char path[strlen(base_path) + 5];
+    char path[strlen(base_path) + strlen(".env") + 1];
     sprintf(path, "%s/.env", base_path);
 
-    return fopen(path, "r");
+    return fopen(path, "rb");
 }
 
 int env_load(char *path, bool overwrite)
@@ -114,7 +110,7 @@ int env_load(char *path, bool overwrite)
     FILE *file = open_default(path);
 
     if (!file) {
-        file = fopen(path, "r");
+        file = fopen(path, "rb");
 
         if (!file) {
             return -1;
