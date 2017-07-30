@@ -28,9 +28,7 @@ DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
 
 int main(void)
 {
-    //A directroy with an .env file in it, or the path of the file explicitly
-    char *path = ".";
-    env_load(path, false);
+    env_load(".", false);
 
     char *connection = getenv("DSN");
 }
