@@ -13,7 +13,7 @@ Quotes won't be removed from the strings.
 
 #### usage
 
-If you don't want to include in your project, you can install with `make install` then link it with `-ldotenv`.
+If you don't want to include in your project, you can install by executing `make install` then link it with `-ldotenv`.
 
 
 ```
@@ -28,9 +28,7 @@ DSN=mysql:host=${DB_HOST};dbname=${DB_NAME}
 
 int main(void)
 {
-    //A directroy with an .env file in it, or the path of the file explicitly
-    char *path = ".";
-    env_load(path, false);
+    env_load(".", false);
 
     char *connection = getenv("DSN");
 }
