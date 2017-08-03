@@ -3,7 +3,6 @@
 #include <memory.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <dotenv.h>
 
 
 /* strtok_r() won't remove the whole ${ part, only the $ */
