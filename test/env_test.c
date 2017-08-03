@@ -21,6 +21,8 @@ static void test_value(void)
     assert_var("\"double\"", "DOUBLE_QUOTE");
     assert_var("\'single\'", "SINGLE_QUOTE");
     assert_var("nested unit test value", "NESTED");
+
+    assert_var("base/.test", "TEST_DIR");
     assert_var("mysql:host=localhost;dbname=test_db", "DSN");
     assert(NULL == getenv("EMPTY"));
 }
@@ -45,7 +47,9 @@ int main(void)
     env_load("./.test.env", false);
 
     assert(0 == env_load("./test", false));
-
+//
+//    printf("%s", getenv("TEST_DIR"));
+//    exit(0);
     test_no_file();
     test_value();
     test_comment();

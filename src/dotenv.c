@@ -9,6 +9,8 @@
 /* strtok_r() won't remove the whole ${ part, only the $ */
 #define remove_bracket(name) name + 1
 
+#define remove_space(value) value + 1
+
 
 static char *concat(char *buffer, char *string)
 {
@@ -30,8 +32,22 @@ static bool is_nested(char *value)
     return strstr(value, "${") && strstr(value, "}");
 }
 
+/**
+ * @example With TEST_DIR=${BASE_DIR}/.test the first strtok_r call will return
+ * BASE_DIR}/.test instead of NULL, or an empty string
+ */
+static char *prepare_value(char *value)
+{
+    char *new = malloc(strlen(value) + 2);
+    sprintf(new, " %s", value);
+
+    return new;
+}
+
 static char *parse_value(char *value)
 {
+    value = prepare_value(value);
+
     char *search = value, *parsed = NULL, *tok_ptr;
     char *name;
 
@@ -46,6 +62,8 @@ static char *parse_value(char *value)
             parsed = concat(parsed, getenv(remove_bracket(name)));
             search = NULL;
         }
+        free(value);
+
         return parsed;
     }
     return value;
@@ -73,11 +91,11 @@ static void set_variable(char *name, char *original, bool overwrite)
 
     if (original) {
         parsed = parse_value(original);
-        setenv(name, parsed, overwrite);
+        setenv(name, remove_space(parsed), overwrite);
 
         if (original != parsed) {
-            free(parsed);
         }
+        free(parsed);
     }
 }
 
