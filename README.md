@@ -3,7 +3,7 @@
 This small package adds support for loading .env files.
 Just call the `env_load` function with a valid path, that contains a file named .env,
 or the path of the env file itself.
-loaded, it'll return `-1`, `0` otherwise. If the second parameter is set to `true`,
+If can't be loaded, it'll return `-1`, `0` otherwise. If the second parameter is set to `true`,
 already existing environment variable will be replaced with the new value.
 
 In the file, comments can be added by starting the line with `#`.
