@@ -13,7 +13,9 @@ Quotes won't be removed from the strings.
 
 #### usage
 
-If you don't want to include in your project, you can install by executing `make install` then link it with `-ldotenv`.
+Install via clib: `clib install Isty001/dotenv-c`
+
+Or if you don't want to include in your project, you can install by executing `make install` then link it with `-ldotenv`.
 
 
 ```
