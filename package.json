@@ -1,0 +1,17 @@
+{
+  "name": "dotenv-c",
+  "description": ".env loader for C",
+  "license": "MIT",
+  "keywords": [
+    ".env",
+    "dotenv",
+    "environemnt",
+    "variables"
+  ],
+  "src": [
+    "src/dotenv.h",
+    "src/dotenv.c"
+  ],
+  "version": "0.0.0",
+  "repo": "Isty001/dotenv-c"
+}
