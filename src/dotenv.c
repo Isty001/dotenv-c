@@ -92,8 +92,6 @@ static void set_variable(char *name, char *original, bool overwrite)
         parsed = parse_value(original);
         setenv(name, remove_space(parsed), overwrite);
 
-        if (original != parsed) {
-        }
         free(parsed);
     }
 }
