@@ -13,7 +13,7 @@ Quotes won't be removed from the strings.
 
 #### usage
 
-Install via clib: `clib install Isty001/dotenv-c`
+Install via clib: `clib install Isty001/dotenv-c`, or just `git clone` into your project.
 
 Or if you don't want to include in your project, you can `git clone` then install by executing `make install` then link it with `-ldotenv`.
 
