@@ -1,8 +1,10 @@
 #include <stdio.h>
-#include <malloc.h>
 #include <memory.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#ifndef __APPLE__
+#include <malloc.h>
+#endif
 
 
 /* strtok_r() won't remove the whole ${ part, only the $ */
