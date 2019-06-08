@@ -1,9 +1,7 @@
 #include <stdio.h>
-#include <malloc.h>
 #include <memory.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
 
 /* strtok_r() won't remove the whole ${ part, only the $ */
 #define remove_bracket(name) name + 1
