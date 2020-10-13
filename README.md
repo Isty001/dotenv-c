@@ -1,5 +1,8 @@
 ### dotenv for c
 
+![Test status](https://github.com/Isty001/dotenv-c/workflows/Test/badge.svg)
+
+
 This small package adds support for loading .env files.
 Just call the `env_load` function with a valid path, that contains a file named .env,
 or the path of the env file itself.
