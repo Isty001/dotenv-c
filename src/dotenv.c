@@ -118,7 +118,7 @@ static FILE *open_default(char *base_path)
     return fopen(path, "rb");
 }
 
-int env_load(char *path, bool overwrite)
+int env_load(const char *path, bool overwrite)
 {
     FILE *file = open_default(path);
 
