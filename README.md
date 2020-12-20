@@ -1,4 +1,4 @@
-### dotenv for c
+## dotenv for c
 
 ![Test status](https://github.com/Isty001/dotenv-c/workflows/Test/badge.svg)
 
@@ -14,13 +14,39 @@ It's also possible to nest the variables, but in that case, the used variables n
 
 Quotes won't be removed from the strings.
 
-#### usage
+### Build / install
 
+##### cmake
+```
+# Build
+(mkdir -p build && cd build && \
+cmake .. && cmake --build .)
+
+# Optional install
+sudo make install
+```
+
+|Type       | Option        | Default | Output       |
+|-----------|---------------|---------|--------------|
+|Shared     | DOTENV_SHARED | __ON__  | libdotenv.so |
+|Static     | DOTENV_STATIC | __ON__  | libdotenv-s.a|
+|Executable | DOTENV_TEST   | __OFF__ | dotenv-test  |
+
+###### Build and run test
+```
+(mkdir -p build && cd build && \
+cmake -DCMAKE_BUILD_TYPE=DEBUG -DDOTENV_TEST=ON .. && cmake --build . && \
+cd .. && ./build/dotenv-test) 
+```
+
+##### clib
 Install via clib: `clib install Isty001/dotenv-c`, or just `git clone` into your project.
 
+
+##### make
 Or if you don't want to include in your project, you can `git clone` then install by executing `make install` then link it with `-ldotenv`.
 
-
+#### Usage
 ```
 # DB connection
 DB_HOST=localhost
