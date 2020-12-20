@@ -1,6 +1,8 @@
 #ifndef DOTENV_DOTENV_H
 #define DOTENV_DOTENV_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C"
 {
