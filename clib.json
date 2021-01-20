@@ -12,6 +12,6 @@
     "src/dotenv.h",
     "src/dotenv.c"
   ],
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repo": "Isty001/dotenv-c"
 }
