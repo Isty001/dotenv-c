@@ -34,7 +34,7 @@ sudo make install
 
 ###### Build and run test
 ```
-(mkdir -p build && cd build && \
+mkdir -p build && cd build && \
 cmake -DCMAKE_BUILD_TYPE=DEBUG -DDOTENV_TEST=ON .. && cmake --build . && \
 cd .. && ./build/dotenv-test) 
 ```
