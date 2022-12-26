@@ -39,7 +39,7 @@ int getline(char **lineptr, size_t *n, FILE *stream) {
 
     fgets(line, 256, stream);
 
-    ptr = strchr(line, '\n');
+    ptr = strstr(line, "\r\n");
     if (ptr)
         *ptr = '\0';
 
