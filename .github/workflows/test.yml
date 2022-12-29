@@ -17,4 +17,5 @@ jobs:
         mkdir -p build && cd build 
         cmake -DDOTENV_TEST=ON ..
         cmake --build .
-        ./dotenv-test
+        cmake install
+        dotenv-test
