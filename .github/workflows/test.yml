@@ -18,4 +18,4 @@ jobs:
         cmake -DOTENV_TEST=ON ..
         cmake --build .
     - name: run test
-      run: ./dotenv-test
+      run: ./build/dotenv-test
