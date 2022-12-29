@@ -17,5 +17,4 @@ jobs:
         mkdir -p build && cd build 
         cmake -DDOTENV_TEST=ON ..
         cmake --build .
-        cmake install
-        dotenv-test
+        ctest --verbose
