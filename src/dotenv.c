@@ -168,7 +168,7 @@ static void parse(FILE *file, bool overwrite)
 
 static FILE *open_default(const char *base_path)
 {
-    char path[strlen(base_path) + strlen(".env") + 1];
+    char path[512];
     sprintf(path, "%s/.env", base_path);
 
     return fopen(path, "rb");
