@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "assert.h"
 
+#if defined(_WIN32)
+#include <string.h>
+#endif
 
 #define assert_var(expected, name) \
     assert(0 == strcmp(expected, getenv(name)))
