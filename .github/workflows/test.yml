@@ -15,6 +15,6 @@ jobs:
       shell: bash
       run: |
         mkdir -p build && cd build 
-        cmake -DOTENV_TEST=ON ..
+        cmake -DDOTENV_TEST=ON ..
         cmake --build .
         ./dotenv-test
