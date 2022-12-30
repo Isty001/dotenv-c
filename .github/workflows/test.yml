@@ -4,8 +4,17 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
-    - name: make test
-      run: make test
+    - name: make and run test
+      shell: bash
+      run: |
+        mkdir -p build && cd build 
+        cmake -DDOTENV_TEST=ON ..
+        cmake --build .
+        ctest -C Debug --verbose

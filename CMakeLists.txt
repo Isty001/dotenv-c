@@ -59,7 +59,13 @@ if (DOTENV_STATIC)
 endif()
 
 if (DOTENV_TEST)
+    enable_testing()
     add_executable(${DOTENV_C_TEST} ${DOTENV_C_TEST_SRC})
     target_include_directories(${DOTENV_C_TEST} PRIVATE ${DOTENV_C_INCLUDE})
     target_compile_options(${DOTENV_C_TEST} PRIVATE ${DOTENV_COMPILE_OPTIONS})
+
+    configure_file(test/.env ${CMAKE_BINARY_DIR}/test/.env COPYONLY)
+    configure_file(test/.test.env ${CMAKE_BINARY_DIR}/test/.test.env COPYONLY)
+
+    add_test(NAME ${DOTENV_C_TEST} COMMAND ${DOTENV_C_TEST})
 endif()

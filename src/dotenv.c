@@ -1,7 +1,63 @@
+#include "dotenv.h"
 #include <stdio.h>
 #include <memory.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+#if (defined(_WIN32) || defined(_MSC_VER)) && !defined(__MINGW32__)
+
+#include <string.h>
+#define strtok_r strtok_s
+
+int setenv(const char *name, const char *value, int overwrite) {
+    int errcode = 0;
+    if (!overwrite) {
+        size_t envsize = 0;
+        errcode        = getenv_s(&envsize, NULL, 0, name);
+        if (errcode || envsize)
+            return errcode;
+    }
+    return _putenv_s(name, value);
+}
+
+// https://dev.w3.org/libwww/Library/src/vms/getline.c
+int getline(char **lineptr, size_t *n, FILE *stream) {
+    static char  line[256];
+    char        *ptr;
+    unsigned int len;
+
+    if (lineptr == NULL || n == NULL) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    if (ferror(stream))
+        return -1;
+
+    if (feof(stream))
+        return -1;
+
+    fgets(line, 256, stream);
+
+    ptr = strstr(line, "\r\n");
+    if (ptr)
+        *ptr = '\0';
+
+    len = strlen(line);
+
+    if ((len + 1) < 256) {
+        ptr = realloc(*lineptr, 256);
+        if (ptr == NULL)
+            return (-1);
+        *lineptr = ptr;
+        *n       = 256;
+    }
+
+    strcpy(*lineptr, line);
+    return (len);
+}
+
+#endif
 
 /* strtok_r() won't remove the whole ${ part, only the $ */
 #define remove_bracket(name) name + 1
@@ -112,7 +168,7 @@ static void parse(FILE *file, bool overwrite)
 
 static FILE *open_default(const char *base_path)
 {
-    char path[strlen(base_path) + strlen(".env") + 1];
+    char path[512];
     sprintf(path, "%s/.env", base_path);
 
     return fopen(path, "rb");
