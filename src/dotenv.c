@@ -1,13 +1,16 @@
 #include "dotenv.h"
 #include <stdio.h>
-#include <memory.h>
+#include <string.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-#if (defined(_WIN32) || defined(_MSC_VER)) && !defined(__MINGW32__)
+#if defined(_WIN32)
 
-#include <string.h>
+#if defined(_MSC_VER)
 #define strtok_r strtok_s
+#define strdup _strdup
+#endif
 
 int setenv(const char *name, const char *value, int overwrite) {
     int errcode = 0;
@@ -190,4 +193,3 @@ int env_load(const char *path, bool overwrite)
 
     return 0;
 }
-
